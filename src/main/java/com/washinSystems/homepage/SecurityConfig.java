@@ -20,17 +20,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                    .antMatchers("/loginForm").permitAll()
+                    .antMatchers("/","/index","/data/**","/mail/**","/maintenance/loginScreen").permitAll()
                     .anyRequest().authenticated()
             .and()
-            .formLogin().loginProcessingUrl("/login")
-                    .loginPage("/loginForm")
-                    .failureUrl("/loginForm?error")
-                    .defaultSuccessUrl("/customers", true)
+            .formLogin().loginProcessingUrl("/maintenance/login")
+                    .loginPage("/maintenance/loginScreen")
+                    .failureUrl("/maintenance/loginScreen?error")
+                    .defaultSuccessUrl("/maintenance/newsOperation", true)
                     .usernameParameter("username").passwordParameter("password")
             .and()
             .logout()
-                    .logoutSuccessUrl("/loginForm");
+                    .logoutSuccessUrl("/maintenance/loginScreen");
     }
 
     @Bean
